@@ -25,7 +25,6 @@ public class Client extends User implements Serializable {
 
     public Client(Integer id, String name, String cpf, String email, String password, Set<Integer> profiles, LocalDate creationDate) {
         super(id, name, cpf, email, password, profiles, creationDate);
-        addProfiles(Profile.CLIENT);
     }
 
     public List<Ticket> getTickets() {
