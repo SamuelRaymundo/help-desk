@@ -1,4 +1,6 @@
-package org.samuelraymundo.helpdesk.domain.enums;
+package org.samuelraymundo.helpdesk.domain.entities;
+
+import org.samuelraymundo.helpdesk.domain.enums.Profile;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -8,13 +10,13 @@ import java.util.stream.Collectors;
 
 public abstract class User {
 
-    private Integer id;
-    private String name;
-    private String cpf;
-    private String email;
-    private String password;
-    private Set<Integer> profiles = new HashSet<>();
-    private LocalDate creationDate = LocalDate.now();
+    protected Integer id;
+    protected String name;
+    protected String cpf;
+    protected String email;
+    protected String password;
+    protected Set<Integer> profiles = new HashSet<>();
+    protected LocalDate creationDate = LocalDate.now();
 
     public User() {
         addProfiles(Profile.CLIENT);
