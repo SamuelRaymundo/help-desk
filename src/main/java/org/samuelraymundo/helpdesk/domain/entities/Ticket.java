@@ -1,22 +1,41 @@
 package org.samuelraymundo.helpdesk.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import org.samuelraymundo.helpdesk.domain.enums.Priority;
 import org.samuelraymundo.helpdesk.domain.enums.Status;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Ticket {
+@Entity(name = "tb_ticket")
+public class Ticket implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate openingDate = LocalDate.now();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate closeDate;
+
     private Priority priority;
     private Status status;
+
     private String title;
+
     private String observations;
 
+    @ManyToOne
+    @JoinColumn(name = "technitian_id")
     private Technitian technitian;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     public Ticket() {
