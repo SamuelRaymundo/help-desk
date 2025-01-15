@@ -1,5 +1,6 @@
 package org.samuelraymundo.helpdesk.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import org.samuelraymundo.helpdesk.domain.enums.Profile;
@@ -15,6 +16,7 @@ public class Client extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Ticket> tickets = new ArrayList<>();
 
