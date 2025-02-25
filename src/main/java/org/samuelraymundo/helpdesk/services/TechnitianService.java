@@ -2,6 +2,7 @@ package org.samuelraymundo.helpdesk.services;
 
 import org.samuelraymundo.helpdesk.domain.entities.Technitian;
 import org.samuelraymundo.helpdesk.domain.repositories.TechnitianRepository;
+import org.samuelraymundo.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,6 @@ public class TechnitianService {
 
     public Technitian findById(Integer id) {
         Optional<Technitian> obj = technitianRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID:" + id));
     }
 }

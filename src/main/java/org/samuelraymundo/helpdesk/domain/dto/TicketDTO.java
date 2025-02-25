@@ -13,4 +13,7 @@ public record TicketDTO(Integer id,
                         Status status,
                         String title,
                         String observations) {
+
+    public TicketDTO {
+    }
 }
