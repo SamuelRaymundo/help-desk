@@ -16,11 +16,15 @@ public record TechnitianDTO(Integer id,
                             String email,
                             String password,
                             @JsonIgnore Set<Integer> profiles,
-                            @JsonFormat(pattern = "dd/MM/yyyy") LocalDate creationDate) {
+                            @JsonFormat(pattern = "dd/MM/yyyy") LocalDate creationDate ) {
 
     public TechnitianDTO {
         if (profiles == null) {
             profiles = new HashSet<>();
+        }
+
+        if (creationDate == null) {
+        creationDate = LocalDate.now();
         }
     }
 
