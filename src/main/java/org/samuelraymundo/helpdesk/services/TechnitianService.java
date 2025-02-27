@@ -45,8 +45,13 @@ public class TechnitianService {
     private void cpfValidationAndEmail(TechnitianDTO technitianDTO) {
         Optional<User> obj = userRepository.findByCpf(technitianDTO.cpf());
         if (obj.isPresent() && !obj.get().getId().equals(technitianDTO.id())) {
-            throw new DataIntegrityViolationException("CPF INVÁLIDO");
+            throw new DataIntegrityViolationException("CPF já cadastrado");
         }
 
+        obj = userRepository.findByEmail(technitianDTO.email());
+
+        if (obj.isPresent() && !obj.get().getId().equals(technitianDTO.id())) {
+            throw new DataIntegrityViolationException("E-mail já cadastrado");
+        }
     }
 }
