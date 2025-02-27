@@ -1,4 +1,4 @@
-package org.samuelraymundo.helpdesk.services.exceptions.resources;
+package org.samuelraymundo.helpdesk.resources;
 
 public class StandardError {
 

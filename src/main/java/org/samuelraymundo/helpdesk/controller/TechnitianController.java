@@ -1,5 +1,6 @@
 package org.samuelraymundo.helpdesk.controller;
 
+import jakarta.validation.Valid;
 import org.samuelraymundo.helpdesk.domain.dto.TechnitianDTO;
 import org.samuelraymundo.helpdesk.domain.entities.Technitian;
 import org.samuelraymundo.helpdesk.services.TechnitianService;
@@ -38,7 +39,7 @@ public class TechnitianController {
     }
 
     @PostMapping
-    public ResponseEntity<TechnitianDTO> create(@RequestBody TechnitianDTO dto) {
+    public ResponseEntity<TechnitianDTO> create(@Valid @RequestBody TechnitianDTO dto) {
         TechnitianDTO obj = technitianService.create(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.id()).toUri();
         return ResponseEntity.created(uri).build();
