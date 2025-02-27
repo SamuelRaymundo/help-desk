@@ -27,7 +27,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> dataIntegrityViolationException(
-            ObjectNotFoundException ex,
+            DataIntegrityViolationException ex,
             HttpServletRequest request) {
         StandardError error = new StandardError(
                 System.currentTimeMillis(),
