@@ -15,18 +15,23 @@ public class TechnitianMapper {
     public Technitian toEntity(TechnitianDTO dto) {
         if (dto == null) return null;
 
-        Set<Integer> profileCodes = dto.profiles() != null ? dto.profiles() : new HashSet<>();
-
-        return new Technitian(
+        Technitian technitian = new Technitian(
                 dto.id(),
                 dto.name(),
                 dto.cpf(),
                 dto.email(),
                 dto.password(),
-                profileCodes,
+                new HashSet<>(),
                 dto.creationDate()
         );
+
+        if (dto.profiles() != null) {
+            dto.profiles().forEach(code -> technitian.addProfiles(Profile.toEnum(code)));
+        }
+
+        return technitian;
     }
+
 
     public TechnitianDTO toDTO(Technitian technitian) {
         if (technitian == null) return null;

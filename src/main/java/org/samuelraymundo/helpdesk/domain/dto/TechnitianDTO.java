@@ -15,7 +15,7 @@ public record TechnitianDTO(Integer id,
                             String cpf,
                             String email,
                             String password,
-                            @JsonIgnore Set<Integer> profiles,
+                            Set<Integer> profiles,
                             @JsonFormat(pattern = "dd/MM/yyyy") LocalDate creationDate ) {
 
     public TechnitianDTO {
