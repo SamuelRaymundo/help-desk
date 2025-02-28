@@ -2,6 +2,7 @@ package org.samuelraymundo.helpdesk.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.br.CPF;
 import org.samuelraymundo.helpdesk.domain.enums.Profile;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public abstract class User implements Serializable {
 
     protected String name;
 
+    @CPF
     @Column(unique = true)
     protected String cpf;
 

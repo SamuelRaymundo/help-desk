@@ -10,6 +10,7 @@ import org.samuelraymundo.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.samuelraymundo.helpdesk.services.mapper.TechnitianMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,4 +55,17 @@ public class TechnitianService {
             throw new DataIntegrityViolationException("E-mail já cadastrado");
         }
     }
+
+
+    public Technitian update(Integer id, TechnitianDTO dto) {
+        Technitian obj = technitianRepository.findById(id).get();
+
+        obj.setName(dto.name());
+        obj.setCpf(dto.cpf());
+        obj.setEmail(dto.email());
+        obj.setPassword(dto.password());
+
+        return technitianRepository.save(obj);
+    }
+
 }

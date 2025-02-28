@@ -44,4 +44,21 @@ public class TechnitianController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.id()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TechnitianDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnitianDTO dto) {
+        Technitian updatedTechnitian = technitianService.update(id, dto);
+        TechnitianDTO updatedDto = new TechnitianDTO(
+                updatedTechnitian.getId(),
+                updatedTechnitian.getName(),
+                updatedTechnitian.getCpf(),
+                updatedTechnitian.getEmail(),
+                updatedTechnitian.getPassword(),
+                updatedTechnitian.getProfiles().stream().map(Profile::getCode).collect(Collectors.toSet()), // Convert back to Set<Integer>
+                updatedTechnitian.getCreationDate()
+        );
+
+        return ResponseEntity.ok(updatedDto);
+    }
+
 }

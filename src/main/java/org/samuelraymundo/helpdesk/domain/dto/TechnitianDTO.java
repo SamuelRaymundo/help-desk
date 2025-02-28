@@ -17,7 +17,7 @@ public record TechnitianDTO(Integer id,
                             @NotNull(message = "O campo E-MAIL é requerido") String email,
                             @NotNull(message = "O campo SENHA é requerido") String password,
                             Set<Integer> profiles,
-                            @JsonFormat(pattern = "dd/MM/yyyy") LocalDate creationDate ) {
+                            @JsonFormat(pattern = "dd/MM/yyyy") LocalDate creationDate) {
 
     public TechnitianDTO {
         if (profiles == null) {
@@ -25,16 +25,13 @@ public record TechnitianDTO(Integer id,
         }
 
         if (creationDate == null) {
-        creationDate = LocalDate.now();
+            creationDate = LocalDate.now();
         }
     }
 
     public Set<Profile> getProfile() {
-        return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+        return profiles.stream().map(Profile::toEnum).collect(Collectors.toSet());
     }
 
-    public void addProfile(Profile profile) {
-        this.profiles.add(profile.getCode());
-    }
 
 }
