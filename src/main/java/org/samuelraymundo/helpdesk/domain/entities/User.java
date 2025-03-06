@@ -23,7 +23,7 @@ public abstract class User implements Serializable {
 
     protected String name;
 
-    @CPF
+
     @Column(unique = true)
     protected String cpf;
 

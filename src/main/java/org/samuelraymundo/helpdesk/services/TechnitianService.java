@@ -10,7 +10,6 @@ import org.samuelraymundo.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.samuelraymundo.helpdesk.services.mapper.TechnitianMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +42,23 @@ public class TechnitianService {
         return technitianMapper.toDTO(savedEntity);
     }
 
+    public Technitian update(Integer id, TechnitianDTO dto) {
+        Technitian obj = technitianRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Técnico não encontrado com ID: " + id));
+
+        obj.setName(dto.name());
+        obj.setCpf(dto.cpf());
+        obj.setEmail(dto.email());
+
+        // Verifica se a senha foi informada antes de atualizar
+        if (dto.password() != null && !dto.password().isBlank()) {
+            obj.setPassword(dto.password());
+        }
+
+        return technitianRepository.save(obj);
+    }
+
+
     private void cpfValidationAndEmail(TechnitianDTO technitianDTO) {
         Optional<User> obj = userRepository.findByCpf(technitianDTO.cpf());
         if (obj.isPresent() && !obj.get().getId().equals(technitianDTO.id())) {
@@ -57,15 +73,6 @@ public class TechnitianService {
     }
 
 
-    public Technitian update(Integer id, TechnitianDTO dto) {
-        Technitian obj = technitianRepository.findById(id).get();
 
-        obj.setName(dto.name());
-        obj.setCpf(dto.cpf());
-        obj.setEmail(dto.email());
-        obj.setPassword(dto.password());
-
-        return technitianRepository.save(obj);
-    }
 
 }

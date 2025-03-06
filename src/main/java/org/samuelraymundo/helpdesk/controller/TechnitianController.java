@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import org.samuelraymundo.helpdesk.domain.enums.Profile;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,19 +46,22 @@ public class TechnitianController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<TechnitianDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnitianDTO dto) {
+    public ResponseEntity<TechnitianDTO> update(@PathVariable Integer id,
+                                                @Valid @RequestBody TechnitianDTO dto) {
         Technitian updatedTechnitian = technitianService.update(id, dto);
+
         TechnitianDTO updatedDto = new TechnitianDTO(
                 updatedTechnitian.getId(),
                 updatedTechnitian.getName(),
                 updatedTechnitian.getCpf(),
                 updatedTechnitian.getEmail(),
                 updatedTechnitian.getPassword(),
-                updatedTechnitian.getProfiles().stream().map(Profile::getCode).collect(Collectors.toSet()), // Convert back to Set<Integer>
+                updatedTechnitian.getProfiles().stream().map(Profile::getCode).collect(Collectors.toSet()),
                 updatedTechnitian.getCreationDate()
         );
 
         return ResponseEntity.ok(updatedDto);
     }
+
 
 }
